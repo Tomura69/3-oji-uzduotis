@@ -26,13 +26,27 @@ int main (){
     duom *A = new duom[m];
     for (int y = 0; y < m; y++){
         sum = 0;
+        bool break1 = 0;
         cout << "Ivesk varda ir pavarde" << endl;
         cin >> A[y].var;
+        for (int i = 0; i < A[y].var.size(); i++){
+                if (isalpha(A[y].var[i]) == 0){
+                    cout << eroras << endl;
+                    break1 = 1;
+                    break;
+                }
+            }
+        if (break1) break;
         cin >> A[y].pav;
-        if (isdigit(A[y].var[0])||isdigit(A[y].pav[0])){
-            cout << eroras << endl;
-            break;
-        }
+        for (int i = 0; i < A[y].pav.size(); i++){
+                if (isalpha(A[y].pav[i]) == 0){
+                    cout << eroras << endl;
+                    break1 = 1;
+                    break;
+                }
+            }
+        if (break1) break;
+
         char d;
         cout << "Jei norite, kad pazymiai butu generuojami atsitiktinai veskite 1, kitu atveju veskite 0" << endl;
         cin >> d;
@@ -75,10 +89,7 @@ int main (){
             while (true){
                 cin >> a;
                 int o = a - '0';
-                /*if (a == '0' && simboliai[n] == 1){
-                    cout << "gal 10?" << endl;
-                }*/
-                if (a == '0') break;
+                if (a==  '0' && simboliai[n-1] != '1') break;
                 else if (o > 10 || a <= 0){
                     cout << "Veskite skaicius, o ne simblius" << endl;
                 }
@@ -86,9 +97,15 @@ int main (){
                 n++;
             }
             int* Med = new int[n];
+            int x = 0;
             for (int h = 0; h < n; h++){
                 int p = simboliai[h] - '0';
-                Med[h] = p;      
+                if (p == 1 && simboliai[h+1] == '0'){
+                    Med[h] = 10;
+                    x++;
+                }
+                else if (p == 0 && simboliai[h-1] == '1');
+                else Med[h] = p;
             }
             for (int t = 0; t < n - 1; t++){
                 for (int o = t; o < n; o++){
@@ -96,6 +113,12 @@ int main (){
                         std::swap(Med[t], Med[o]);
                     }
                 }
+            }
+            for (int i = 0; i < x; i++){
+                for (int y = 0; y < n; y++){
+                    Med[y] = Med[y+1];
+                }
+                n--;
             }
             int l = n;
             for (int p = 0; p < l; p++){
