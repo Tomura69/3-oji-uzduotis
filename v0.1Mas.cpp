@@ -26,6 +26,7 @@ int main (){
     duom *A = new duom[m];
     for (int y = 0; y < m; y++){
         sum = 0;
+        n = 0;
         bool break1 = 0;
         cout << "Ivesk varda ir pavarde" << endl;
         cin >> A[y].var;
@@ -89,7 +90,7 @@ int main (){
             while (true){
                 cin >> a;
                 int o = a - '0';
-                if (a==  '0' && simboliai[n-1] != '1') break;
+                if (a ==  '0' && simboliai[n-1] != '1') break;
                 else if (o > 10 || a <= 0){
                     cout << "Veskite skaicius, o ne simblius" << endl;
                 }
@@ -123,8 +124,10 @@ int main (){
             int l = n;
             for (int p = 0; p < l; p++){
                 if (Med[p] >= 10 || Med[p] <= 0){
-                    n--;
                 }
+            }
+            for (int i = 0; i < n; i++){
+                cout << "Med: " << Med[i] << endl;
             }
             lyginis = (n%2 == 0);
             for (int l = 0; l < n - 1; l++){
