@@ -10,12 +10,30 @@ bool Patikra (std::string a){
             }
 }
 
+void Generavimas (int stud){
+    std::ofstream fr("kursiokai.cpp");
+    if (fr.is_open()){
+        for (int i = 1; i <= stud; i++){
+            std::string s = std::to_string(i);
+            fr << "Vardas" + s << " Pavarde" + s;
+            for (int y = 0; y < 10; y++){
+                fr << " " << 1+rand() % 10;
+            }
+            fr << endl;
+        }
+    }
+    else {
+        cout << "Negalima sukurti failo" << endl;
+    }
+    fr.close();
+}
+
 void Skaitymas (int & m, std::vector<duom>& Duomenys){
     std::ifstream fd("kursiokai.txt");
     
     int laik;
     std::string pvz;
-    std::getline(fd, pvz);
+    //std::getline(fd, pvz);
     while (!fd.eof()){
         try {
             if (!fd.good()){
@@ -30,9 +48,9 @@ void Skaitymas (int & m, std::vector<duom>& Duomenys){
         Duomenys.push_back(duom());
         try {
             fd >> Duomenys[m].var;
-            Patikra (Duomenys[m].var);
+            //Patikra (Duomenys[m].var);
             fd >> Duomenys[m].pav;
-            Patikra (Duomenys[m].pav);
+            //Patikra (Duomenys[m].pav);
         } catch (const char* msg){
             cout << msg << endl;
         }
@@ -89,4 +107,17 @@ void Skaitymas (int & m, std::vector<duom>& Duomenys){
         Medv.clear();
     } 
     fd.close();
+}
+
+void Rusiavimas (int & m, std::vector<duom>& Duomenys){
+    for (int i = 0; i < m; i++){
+        if (Duomenys[m].galutinis > 5.0 && Duomenys[m].galmed > 5.0){
+            std::ofstream fr1("Saunuoliai.txt", std::ios::app);
+            fr1 << Duomenys[m].var << " " << Duomenys[m].pav << " " << Duomenys[m].galutinis << " " << Duomenys[m].galmed << endl;
+        }
+        else {
+            std::ofstream fr2("Vargsiukai.txt", std::ios::app);
+            fr2 << Duomenys[m].var << " " << Duomenys[m].pav << " " << Duomenys[m].galutinis << " " << Duomenys[m].galmed << endl;
+        }
+    }
 }

@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -5,6 +6,7 @@
 #include <ctype.h>
 #include <vector>
 #include <fstream>
+#include <chrono>
 #include <stdlib.h>
 #include <array>
 
@@ -20,3 +22,5 @@ struct duom
 
 bool Patikra (std::string a);
 void Skaitymas (int & m, std::vector<duom>& Duomenys);
+void Generavimas (int stud);
+void Rusiavimas (int & m, std::vector<duom>& Duomenys);

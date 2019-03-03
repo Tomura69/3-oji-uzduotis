@@ -2,13 +2,24 @@
 
 int main (int argc, char *argv[]){
     const std::string eroras = "Blogai ivesti duomenys";
-    int m = 0, n, sum = 0, generuoti;
+    int m = 0, n, sum = 0, generuoti, stud;
     double tarp, egz, tarp2;
     bool lyginis;
     std::vector<duom> Duomenys;
-    
     srand(time(NULL));
-    Skaitymas (m, Duomenys);
+
+    cout << "Kiek generuoti studentu? " << endl;
+    cin >> stud;
+    auto startas = std::chrono::system_clock::now();
+
+    Generavimas (stud);
+    //Skaitymas (m, Duomenys);
+
+    auto pabaiga = std::chrono::system_clock::now();
+    auto uztruko = std::chrono::duration_cast<
+    std::chrono::duration<double> >(pabaiga - startas).count();
+    cout << "Failo generavimas ir skaitymas uztruko: " << uztruko << " sekundziu" << endl;
+    
     while (true){
         n = 0;
         sum = 0;
@@ -142,13 +153,17 @@ int main (int argc, char *argv[]){
                 }
             }
         }
+        Rusiavimas (m, Duomenys);
+        /*cout << endl;
         cout << "Pavarde" << std::setw(15) << "Vardas" << std::setw(21) << "VidGalutinis" << std::setw(21) << "MedGalutinis" << endl;
         cout << std::string(60, '-') << endl;
         for (int i = 0; i <= m; i++){
             cout << Duomenys[i].var << std::setw(15) << Duomenys[i].pav << std::setw(21) << std::setprecision(2) << Duomenys[i].galutinis << std::setw(21) << std::setprecision(2) << Duomenys[i].galmed << endl;
-        }
+        }*/
         m++;
+        cout << endl;
     }
+    
     
     return 0;
 }
