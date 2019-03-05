@@ -10,10 +10,11 @@ bool Patikra (std::string a){
             }
 }
 
-void Generavimas (int stud){
-    std::ofstream fr("kursiokai.cpp");
+void Generavimas (int test){
+    std::string s = std::to_string(test);
+    std::ofstream fr("test" + s + ".txt");
     if (fr.is_open()){
-        for (int i = 1; i <= stud; i++){
+        for (int i = 1; i <= test; i++){
             std::string s = std::to_string(i);
             fr << "Vardas" + s << " Pavarde" + s;
             for (int y = 0; y < 10; y++){
@@ -21,6 +22,7 @@ void Generavimas (int stud){
             }
             fr << endl;
         }
+        cout << test << endl;
     }
     else {
         cout << "Negalima sukurti failo" << endl;
@@ -29,7 +31,7 @@ void Generavimas (int stud){
 }
 
 void Skaitymas (int & m, std::vector<duom>& Duomenys){
-    std::ifstream fd("kursiokai.txt");
+    std::ifstream fd("kursiokaai.txt");
     
     int laik;
     std::string pvz;
@@ -48,9 +50,9 @@ void Skaitymas (int & m, std::vector<duom>& Duomenys){
         Duomenys.push_back(duom());
         try {
             fd >> Duomenys[m].var;
-            //Patikra (Duomenys[m].var);
+            Patikra (Duomenys[m].var);
             fd >> Duomenys[m].pav;
-            //Patikra (Duomenys[m].pav);
+            Patikra (Duomenys[m].pav);
         } catch (const char* msg){
             cout << msg << endl;
         }
@@ -110,14 +112,15 @@ void Skaitymas (int & m, std::vector<duom>& Duomenys){
 }
 
 void Rusiavimas (int & m, std::vector<duom>& Duomenys){
-    for (int i = 0; i < m; i++){
-        if (Duomenys[m].galutinis > 5.0 && Duomenys[m].galmed > 5.0){
-            std::ofstream fr1("Saunuoliai.txt", std::ios::app);
-            fr1 << Duomenys[m].var << " " << Duomenys[m].pav << " " << Duomenys[m].galutinis << " " << Duomenys[m].galmed << endl;
+    for (int i = 0; i <= m; i++){
+        cout << " Coutas " << Duomenys[i].galutinis << endl;
+        if (Duomenys[i].galutinis > 5.0 && Duomenys[i].galmed > 5.0){
+            std::ofstream fr1("Saunuoliai.txt");
+            fr1 << Duomenys[i].var << " " << Duomenys[i].pav << " " << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
         }
         else {
-            std::ofstream fr2("Vargsiukai.txt", std::ios::app);
-            fr2 << Duomenys[m].var << " " << Duomenys[m].pav << " " << Duomenys[m].galutinis << " " << Duomenys[m].galmed << endl;
+            std::ofstream fr2("Vargsiukai.txt"/*, std::ios::app*/);
+            fr2 << Duomenys[i].var << " " << Duomenys[i].pav << " " << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
         }
     }
 }

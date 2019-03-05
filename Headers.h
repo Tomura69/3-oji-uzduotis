@@ -22,5 +22,5 @@ struct duom
 
 bool Patikra (std::string a);
 void Skaitymas (int & m, std::vector<duom>& Duomenys);
-void Generavimas (int stud);
+void Generavimas (int test);
 void Rusiavimas (int & m, std::vector<duom>& Duomenys);
