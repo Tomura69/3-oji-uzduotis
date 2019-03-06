@@ -17,7 +17,7 @@ void Generavimas (int test){
         for (int i = 1; i <= test; i++){
             std::string s = std::to_string(i);
             fr << "Vardas" + s << " Pavarde" + s;
-            for (int y = 0; y < 10; y++){
+            for (int y = 0; y < 100; y++){
                 fr << " " << 1+rand() % 10;
             }
             if (i != test)
@@ -32,7 +32,6 @@ void Generavimas (int test){
 
 void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
     std::string s = std::to_string(t);
-    std::ofstream fr("visi.md", std::ios::app);
     std::ifstream fd("test" + s + ".md");
     bool sauga = 0;
     try {
@@ -55,10 +54,8 @@ void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
         std::istringstream in_line(pvz);
         try {
             in_line >> Duomenys[m].var;
-            fr << Duomenys[m].var << " ";
             //Patikra (Duomenys[m].var);
             in_line >> Duomenys[m].pav;
-            fr << Duomenys[m].pav << " ";
             //Patikra (Duomenys[m].pav);
         } catch (const char* msg){
             cout << msg << endl;
@@ -85,8 +82,14 @@ void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
         int egz = Med[kas-1];
         kas--;
         sum = sum - egz;
-
-        for (int l = 0; l < kas-1; l++){
+        Skaiciavimai (Duomenys, m, kas, Med, sum, egz);
+        delete [] Med;
+        m++;
+    } 
+    fd.close();
+}
+void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, int Med[], int sum, int egz){
+    for (int l = 0; l < kas-1; l++){
                 for (int k = l+1; k < kas; k++){
                     if (Med[l] > Med[k])
                         std::swap(Med[l], Med[k]);
@@ -101,26 +104,23 @@ void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
         else {
             Duomenys[m].mediana = Med[(kas/2)];
         }
-        delete [] Med;
         double tarp = 0.4*((double)sum / kas)+0.6*egz;
         Duomenys[m].galutinis = tarp;
         Duomenys[m].galmed = 0.4*Duomenys[m].mediana+0.6*egz;
-        fr << Duomenys[m].galutinis << " " << Duomenys[m].galmed << endl;
-        m++;
-    } 
-    fd.close();
 }
 
+
 void Rusiavimas (int & m, std::vector<duom>& Duomenys){
-    cout << m << endl;
+    std::ofstream fr1("Saunuoliai.md", std::ios::app);
+    std::ofstream fr2("Vargsiukai.md", std::ios::app);
     for (int i = 0; i < m; i++){
         if (Duomenys[i].galutinis > 5.0 && Duomenys[i].galmed > 5.0){
-            std::ofstream fr1("Saunuoliai.md", std::ios::app);
-            fr1 << Duomenys[i].var << " " << Duomenys[i].pav << " " << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
+            fr1 << Duomenys[i].var << " " << Duomenys[i].pav << " " << std::setprecision(3) << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
         }
         else {
-            std::ofstream fr2("Vargsiukai.md", std::ios::app);
-            fr2 << Duomenys[i].var << " " << Duomenys[i].pav << " " << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
+            fr2 << Duomenys[i].var << " " << Duomenys[i].pav << " " << std::setprecision(3) << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
         }
     }
+    fr1.close();
+    fr2.close();
 }

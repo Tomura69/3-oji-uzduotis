@@ -29,3 +29,4 @@ bool Patikra (std::string a);
 void Skaitymas (int t, int & m, std::vector<duom>& Duomenys);
 void Generavimas (int test);
 void Rusiavimas (int & m, std::vector<duom>& Duomenys);
+void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, int Med[], int sum, int egz);
