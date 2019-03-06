@@ -5,10 +5,15 @@
 #include <time.h>
 #include <ctype.h>
 #include <vector>
+#include <string.h>
 #include <fstream>
 #include <chrono>
 #include <stdlib.h>
 #include <array>
+#include <algorithm>
+#include <cmath>
+#include <stdio.h>
+#include <sstream>
 
 using std::cout;
 using std::cin;
@@ -21,6 +26,6 @@ struct duom
 };
 
 bool Patikra (std::string a);
-void Skaitymas (int & m, std::vector<duom>& Duomenys);
+void Skaitymas (int t, int & m, std::vector<duom>& Duomenys);
 void Generavimas (int test);
 void Rusiavimas (int & m, std::vector<duom>& Duomenys);
