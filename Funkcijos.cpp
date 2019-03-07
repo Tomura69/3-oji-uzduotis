@@ -10,15 +10,29 @@ bool Patikra (std::string a){
             }
 }
 
+
+void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav){
+    if (didvar < var.size()){
+        didvar = var.size();
+    }
+    if (didpav < pav.size()){
+        didpav = pav.size();
+    }
+}
+
+
 void Generavimas (int test){
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> range(1, 10);
     std::string s = std::to_string(test);
     std::ofstream fr("test" + s + ".md");
     if (fr.is_open()){
         for (int i = 1; i <= test; i++){
             std::string s = std::to_string(i);
             fr << "Vardas" + s << " Pavarde" + s;
-            for (int y = 0; y < 100; y++){
-                fr << " " << 1+rand() % 10;
+            for (int y = 0; y < 10; y++){
+                fr << " " << range(mt);
             }
             if (i != test)
             fr << endl;
@@ -110,17 +124,31 @@ void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, int Med[], int s
 }
 
 
-void Rusiavimas (int & m, std::vector<duom>& Duomenys){
-    std::ofstream fr1("Saunuoliai.md", std::ios::app);
-    std::ofstream fr2("Vargsiukai.md", std::ios::app);
+void Rusiavimas (int & m, std::vector<duom>& Duomenys, std::vector<duom>& Minksti, std::vector<duom>& Stiprus){
     for (int i = 0; i < m; i++){
         if (Duomenys[i].galutinis > 5.0 && Duomenys[i].galmed > 5.0){
-            fr1 << Duomenys[i].var << " " << Duomenys[i].pav << " " << std::setprecision(3) << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
+            Minksti.push_back(Duomenys[i]);
         }
         else {
-            fr2 << Duomenys[i].var << " " << Duomenys[i].pav << " " << std::setprecision(3) << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
+            Stiprus.push_back(Duomenys[i]);
         }
+    }
+    m = 0;
+    Duomenys.clear();
+    
+}
+
+void Irasymas (std::vector<duom>& Minksti, std::vector<duom>& Stiprus){
+    std::ofstream fr1("Saunuoliai.md", std::ios::app);
+    std::ofstream fr2("Vargsiukai.md", std::ios::app);
+    for (int i = 0; i < Minksti.size(); i++){
+        fr2 << Minksti[i].var << " " << Minksti[i].pav << " " << std::setprecision(3) << Minksti[i].galutinis << " " << Minksti[i].galmed << endl;
+    }
+    for (int i = 0; i < Stiprus.size(); i++){
+        fr1 << Stiprus[i].var << " " << Stiprus[i].pav << " " << std::setprecision(3) << Stiprus[i].galutinis << " " << Stiprus[i].galmed << endl;
     }
     fr1.close();
     fr2.close();
+    Minksti.clear();
+    Stiprus.clear();
 }

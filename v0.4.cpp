@@ -2,32 +2,41 @@
 
 int main (int argc, char *argv[]){
     const std::string eroras = "Blogai ivesti duomenys";
-    int m = 0, sum = 0, generuoti, failai, stud;
+    int m = 0, sum = 0, generuoti, didvar = 6, didpav = 7, stud;
     double tarp, egz, tarp2;
     bool lyginis;
-    std::vector<duom> Duomenys;
-    srand(time(NULL));
-    cout << "Jei norite sugeneruoti ir nuskaityti failus, spauskite 1, kitu atveju 0"<< endl;
-    cin >> failai;
-    if (failai == 1){
+    std::vector<duom> Duomenys, Minksti, Stiprus;
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> range(1, 10);
         int t = 10;
-        auto startas = std::chrono::system_clock::now();
         for (int i = 0; i < 5; i++){
-        
+            auto startas = std::chrono::system_clock::now();
             Generavimas (t);
             Skaitymas (t, m, Duomenys);
+            auto pabaiga = std::chrono::system_clock::now();
+            auto uztruko = std::chrono::duration_cast<
+            std::chrono::duration<double> >(pabaiga - startas).count();
+            cout << t << "-ies dydzio failo generavimas ir skaitymas uztruko: " << uztruko << " sekundziu" << endl;
             t = t * 10;
         }
-        Rusiavimas (m, Duomenys);
-    
 
+        {auto startas = std::chrono::system_clock::now();
+        Rusiavimas (m, Duomenys, Minksti, Stiprus);
         auto pabaiga = std::chrono::system_clock::now();
         auto uztruko = std::chrono::duration_cast<
         std::chrono::duration<double> >(pabaiga - startas).count();
-        cout << "Failo generavimas ir skaitymas uztruko: " << uztruko << " sekundziu" << endl;
-    }
-    
-    else {
+        cout << "Duomenu isrusiavimas uztruko: " << uztruko << " sekundziu" << endl;}
+        
+        auto startas = std::chrono::system_clock::now();
+        Irasymas (Minksti, Stiprus);
+        auto pabaiga = std::chrono::system_clock::now();
+        auto uztruko = std::chrono::duration_cast<
+        std::chrono::duration<double> >(pabaiga - startas).count();
+        cout << "Duomenu isvedimas uztruko: " << uztruko << " sekundziu" << endl;
+        cout << endl;
+
+        
         while (true){
             sum = 0;
             cout << "Ivesk varda ir pavarde" << endl;
@@ -41,6 +50,7 @@ int main (int argc, char *argv[]){
                 cout << msg << endl;
                 break;
             }
+            Ilgiausias (didvar, didpav, Duomenys[m].var, Duomenys[m].pav);
             char d;
             cout << "Jei norite, kad pazymiai butu generuojami atsitiktinai veskite 1, kitu atveju veskite 0" << endl;
             cin >> d;
@@ -56,10 +66,10 @@ int main (int argc, char *argv[]){
                 lyginis = (n%2 == 0);
                 int *Med = new int[n];
                 for (int i = 0; i < n; i++){
-                    Med[i] = 1+rand() % 10;
+                    Med[i] = range(mt);
                     sum = sum + Med[i];
                 }
-                egz = 1+rand() % 10;
+                egz = range(mt);
                 Skaiciavimai (Duomenys, m, n, Med, sum, egz);
                 delete [] Med;
             }
@@ -138,14 +148,13 @@ int main (int argc, char *argv[]){
             }
         
             cout << endl;
-            cout << "Pavarde" << std::setw(15) << "Vardas" << std::setw(21) << "VidGalutinis" << std::setw(21) << "MedGalutinis" << endl;
-            cout << std::string(60, '-') << endl;
+            cout << std::left << std::setw(didvar + 1) << "Vardas" << std::left << std::setw(didpav + 1) << "Pavarde" << "VidGalutinis  " << "MedGalutinis" << endl;
+            cout << std::string(didvar+didpav+27, '-') << endl;
             for (int i = 0; i <= m; i++){
-                cout << Duomenys[i].var << std::setw(15) << Duomenys[i].pav << std::setw(21) << std::setprecision(2) << Duomenys[i].galutinis << std::setw(21) << std::setprecision(2) << Duomenys[i].galmed << endl;
+                cout << std::left << std::setw(didvar+1) << Duomenys[i].var << std::left << std::setw(didpav+1) << Duomenys[i].pav << std::left << std::setw(14) << std::setprecision(2) << Duomenys[i].galutinis << std::left << std::setprecision(2) << Duomenys[i].galmed << endl;
             }
             m++;
             cout << endl;
-        }
     }
     return 0;
 }
