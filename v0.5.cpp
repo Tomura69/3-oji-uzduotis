@@ -22,6 +22,7 @@ int main (int argc, char *argv[]){
         cout << t << "-ies dydzio failo " /*generavimas ir */"skaitymas uztruko: " << uztruko << " sekundziu" << endl;
         t = t * 10;
     }
+    
 
     {auto startas = std::chrono::system_clock::now();
     Rusiavimas (m, Duomenys, Minksti, Stiprus);

@@ -98,6 +98,7 @@ void Skaitymas (int t, int & m, std::deque<duom>& Duomenys){
     } 
     fd.close();
 }
+
 void Skaiciavimai (std::deque<duom>& Duomenys, int m, int kas, std::deque<int>& Medv, int sum, int egz){
     std::sort(Medv.begin(), Medv.end());
         
