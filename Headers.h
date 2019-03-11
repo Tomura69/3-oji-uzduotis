@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <cmath>
 #include <stdio.h>
+#include <deque>
 #include <sstream>
 
 using std::cout;
@@ -22,14 +23,14 @@ using std::endl;
 
 struct duom
 {
-	std::string var, pav;
-	double galutinis, mediana, galmed;
+    std::string var, pav;
+    double galutinis, mediana, galmed;
 };
 
-bool Patikra(std::string a);
-void Ilgiausias(int & didvar, int & didpav, std::string var, std::string pav);
-void Skaitymas(int t, int & m, std::vector<duom>& Duomenys);
-void Generavimas(int test);
-void Rusiavimas(int & m, std::vector<duom>& Duomenys, std::vector<duom>& Minksti, std::vector<duom>& Stiprus);
-void Skaiciavimai(std::vector<duom>& Duomenys, int m, int kas, int Med[], int sum, int egz);
-void Irasymas(std::vector<duom>& Minksti, std::vector<duom>& Stiprus);
+bool Patikra (std::string a);
+void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);
+void Skaitymas (int t, int & m, std::vector<duom>& Duomenys);
+void Generavimas (int test);
+void Rusiavimas (int & m, std::vector<duom>& Duomenys, std::vector<duom>& Minksti, std::vector<duom>& Stiprus);
+void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>& Med, int sum, int egz);
+void Irasymas (std::vector<duom>& Minksti, std::vector<duom>& Stiprus);

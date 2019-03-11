@@ -90,47 +90,39 @@ void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
             cout << "Blogai ivesti duomenys " << t << "-ame faile" << endl;
             break;
         }
-        int *Med = new int [kas];
-        std::copy(Medv.begin(), Medv.end(), Med);
-        Medv.clear();
-        int egz = Med[kas-1];
+        int egz = Medv[kas-1];
         kas--;
         sum = sum - egz;
-        Skaiciavimai (Duomenys, m, kas, Med, sum, egz);
-        delete [] Med;
+        Skaiciavimai (Duomenys, m, kas, Medv, sum, egz);
         m++;
     } 
     fd.close();
 }
-void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, int Med[], int sum, int egz){
-    for (int l = 0; l < kas-1; l++){
-                for (int k = l+1; k < kas; k++){
-                    if (Med[l] > Med[k])
-                        std::swap(Med[l], Med[k]);
-                }
-        }
+void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>& Medv, int sum, int egz){
+    std::sort(Medv.begin(), Medv.end());
         
-        bool lyginis = (kas%2 == 0);
-        if (lyginis){
-            double tarp2 = (Med[kas/2-1] + Med[kas/2]) / 2.0;
-            Duomenys[m].mediana = tarp2;
-        }
-        else {
-            Duomenys[m].mediana = Med[(kas/2)];
-        }
-        double tarp = 0.4*((double)sum / kas)+0.6*egz;
-        Duomenys[m].galutinis = tarp;
-        Duomenys[m].galmed = 0.4*Duomenys[m].mediana+0.6*egz;
+    bool lyginis = (kas%2 == 0);
+    if (lyginis){
+        double tarp2 = (Medv[kas/2-1] + Medv[kas/2]) / 2.0;
+        Duomenys[m].mediana = tarp2;
+    }
+    else {
+        Duomenys[m].mediana = Medv[(kas/2)];
+    }
+    double tarp = 0.4*((double)sum / kas)+0.6*egz;
+    Duomenys[m].galutinis = tarp;
+    Duomenys[m].galmed = 0.4*Duomenys[m].mediana+0.6*egz;
+    Medv.clear();
 }
 
 
 void Rusiavimas (int & m, std::vector<duom>& Duomenys, std::vector<duom>& Minksti, std::vector<duom>& Stiprus){
     for (int i = 0; i < m; i++){
         if (Duomenys[i].galutinis > 5.0 && Duomenys[i].galmed > 5.0){
-            Minksti.push_back(Duomenys[i]);
+            Stiprus.push_back(Duomenys[i]);
         }
         else {
-            Stiprus.push_back(Duomenys[i]);
+            Minksti.push_back(Duomenys[i]);
         }
     }
     m = 0;
