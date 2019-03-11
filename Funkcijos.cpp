@@ -44,7 +44,7 @@ void Generavimas (int test){
     fr.close();
 }
 
-void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
+void Skaitymas (int t, int & m, std::deque<duom>& Duomenys){
     std::string s = std::to_string(t);
     std::ifstream fd("test" + s + ".md");
     bool sauga = 0;
@@ -58,7 +58,7 @@ void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
         }
     int laik;
     std::string pvz;
-    std::vector<int> Medv;
+    std::deque<int> Medv;
     while (!fd.eof()){
         if (sauga) break;
         
@@ -98,7 +98,7 @@ void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
     } 
     fd.close();
 }
-void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>& Medv, int sum, int egz){
+void Skaiciavimai (std::deque<duom>& Duomenys, int m, int kas, std::deque<int>& Medv, int sum, int egz){
     std::sort(Medv.begin(), Medv.end());
         
     bool lyginis = (kas%2 == 0);
@@ -116,7 +116,7 @@ void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>
 }
 
 
-void Rusiavimas (int & m, std::vector<duom>& Duomenys, std::vector<duom>& Minksti, std::vector<duom>& Stiprus){
+void Rusiavimas (int & m, std::deque<duom>& Duomenys, std::deque<duom>& Minksti, std::deque<duom>& Stiprus){
     for (int i = 0; i < m; i++){
         if (Duomenys[i].galutinis > 5.0 && Duomenys[i].galmed > 5.0){
             Stiprus.push_back(Duomenys[i]);
@@ -130,7 +130,7 @@ void Rusiavimas (int & m, std::vector<duom>& Duomenys, std::vector<duom>& Minkst
     
 }
 
-void Irasymas (std::vector<duom>& Minksti, std::vector<duom>& Stiprus){
+void Irasymas (std::deque<duom>& Minksti, std::deque<duom>& Stiprus){
     std::ofstream fr1("Saunuoliai.md", std::ios::app);
     std::ofstream fr2("Vargsiukai.md", std::ios::app);
     for (int i = 0; i < Minksti.size(); i++){

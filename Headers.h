@@ -29,8 +29,8 @@ struct duom
 
 bool Patikra (std::string a);
 void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);
-void Skaitymas (int t, int & m, std::vector<duom>& Duomenys);
+void Skaitymas (int t, int & m, std::deque<duom>& Duomenys);
 void Generavimas (int test);
-void Rusiavimas (int & m, std::vector<duom>& Duomenys, std::vector<duom>& Minksti, std::vector<duom>& Stiprus);
-void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>& Med, int sum, int egz);
-void Irasymas (std::vector<duom>& Minksti, std::vector<duom>& Stiprus);
+void Rusiavimas (int & m, std::deque<duom>& Duomenys, std::deque<duom>& Minksti, std::deque<duom>& Stiprus);
+void Skaiciavimai (std::deque<duom>& Duomenys, int m, int kas, std::deque<int>& Med, int sum, int egz);
+void Irasymas (std::deque<duom>& Minksti, std::deque<duom>& Stiprus);
