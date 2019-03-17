@@ -33,6 +33,6 @@ bool Patikra (std::string a);
 void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);
 void Skaitymas (int t, std::list<duom>& Duomenys);
 void Generavimas (int test);
-void Rusiavimas (std::list<duom>& Duomenys, std::list<duom>& Minksti, std::list<duom>& Stiprus);
+void Rusiavimas (std::list<duom>& Duomenys, std::list<duom>& Minksti);
 void Skaiciavimai (duom& duomenys, int kas, std::vector<int>& Med, int sum, int egz);
-void Irasymas (std::list<duom>& Minksti, std::list<duom>& Stiprus);
+void Irasymas (std::list<duom>& Minksti, std::list<duom>& Duomenys);

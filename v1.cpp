@@ -1,12 +1,12 @@
 #include "Headers.h"
 
 int main (int argc, char *argv[]){
-    const std::string eroras = "Blogai ivesti duomenys";
+    const std::string eroras = "Blogai ivesti duomenys, kartokite ivedima";
     int sum = 0, generuoti, didvar = 6, didpav = 7, stud;
     double tarp, egz, tarp2;
-    bool lyginis;
+    bool lyginis, sauga = 0;
     duom test;
-    std::list<duom> Test, Duomenys, Minksti, Stiprus;
+    std::list<duom> Test, Duomenys, Minksti;
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> range(1, 10);
@@ -15,31 +15,42 @@ int main (int argc, char *argv[]){
     int t = 10;
     for (int i = 0; i < 5; i++){
         auto startas = std::chrono::system_clock::now();
-        //Generavimas (t);
-        Skaitymas (t, Duomenys);
+        try {
+            Generavimas (t);
+            Skaitymas (t, Duomenys);
+            } catch (const char* msg){
+                cout << msg << endl;
+                sauga = 1;
+                break;
+                
+            }
         auto pabaiga = std::chrono::system_clock::now();
         auto uztruko = std::chrono::duration_cast<
         std::chrono::duration<double> >(pabaiga - startas).count();
         cout << t << "-ies dydzio failo " /*generavimas ir */"skaitymas uztruko: " << uztruko << " sekundziu" << endl;
         t = t * 10;
     }
-
-    {auto startas = std::chrono::system_clock::now();
-    Rusiavimas (Duomenys, Minksti, Stiprus);
-    auto pabaiga = std::chrono::system_clock::now();
-    auto uztruko = std::chrono::duration_cast<
-    std::chrono::duration<double> >(pabaiga - startas).count();
-    cout << "Duomenu isrusiavimas uztruko: " << uztruko << " sekundziu" << endl;}
+    if (sauga){
+        cout << "Rusiavimas neivyko, del nuskaitymo arba irasymo klaidos" << endl;
+    }
+    else {
+        {auto startas = std::chrono::system_clock::now();
+        Rusiavimas (Duomenys, Minksti);
+        auto pabaiga = std::chrono::system_clock::now();
+        auto uztruko = std::chrono::duration_cast<
+        std::chrono::duration<double> >(pabaiga - startas).count();
+        cout << "Duomenu isrusiavimas uztruko: " << uztruko << " sekundziu" << endl;}
         
-    {auto startas = std::chrono::system_clock::now();
-    Irasymas (Minksti, Stiprus);
-    auto pabaiga = std::chrono::system_clock::now();
-    auto uztruko = std::chrono::duration_cast<
-    std::chrono::duration<double> >(pabaiga - startas).count();
-    cout << "Duomenu isvedimas uztruko: " << uztruko << " sekundziu" << endl;}
-    cout << endl;
-
-        
+        {auto startas = std::chrono::system_clock::now();
+        Irasymas (Minksti, Duomenys);
+        auto pabaiga = std::chrono::system_clock::now();
+        auto uztruko = std::chrono::duration_cast<
+        std::chrono::duration<double> >(pabaiga - startas).count();
+        cout << "Duomenu isvedimas uztruko: " << uztruko << " sekundziu" << endl;}
+        cout << endl;
+    }
+    
+     
     while (true){
         sum = 0;
         std::string laik;
@@ -51,7 +62,7 @@ int main (int argc, char *argv[]){
             Patikra (test.pav);
         } catch (const char* msg){
             cout << msg << endl;
-            break;
+            continue;
         }
         Ilgiausias (didvar, didpav, test.var, test.pav);
         char d;
@@ -60,7 +71,7 @@ int main (int argc, char *argv[]){
         generuoti = d - '0';
         if (generuoti < 0 || generuoti > 1){
             cout << eroras << endl;
-            break;
+            continue;
         }
         if (generuoti){
             int n = 0;
@@ -70,7 +81,7 @@ int main (int argc, char *argv[]){
             int y = 10;
             for (int i = 0; i < a.size(); i++){
                 if (isalpha(a[i]) != 0){
-                    cout << "Blogai ivesti suomenys" << endl;
+                    cout << eroras << endl;
                     break;
                 }
                 n = n * y + a[i] - '0';
@@ -103,7 +114,7 @@ int main (int argc, char *argv[]){
             }
             if (Medv.empty()){
                 cout << eroras << endl;
-                break;
+                continue;
             }
             int kas = 0;
             for (int i = 0; i < n; i++){
@@ -137,7 +148,7 @@ int main (int argc, char *argv[]){
             else if (g.size() == 1) egz = g[0] - '0';
             if (egz > 10 || egz <= 0){
                 cout << eroras << endl;
-                break;
+                continue;
             }
             Skaiciavimai (test, n, Medv, sum, egz);
             Test.push_back(test);

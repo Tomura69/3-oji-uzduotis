@@ -2,12 +2,12 @@
 
 bool Patikra (std::string a){
     for (int i = 0; i < a.size(); i++){
-                if (isalpha(a[i]) == 0){
-                    throw "Blogai ivesti duomenys";
-                    return 1;
-                    break;
-                }
-            }
+        if (isalpha(a[i]) == 0){
+            throw "Blogai ivesti duomenys, bandykite dar karta";
+            return 1;
+            break;
+        }
+    }
 }
 
 
@@ -49,20 +49,13 @@ void Skaitymas (int t, std::list<duom>& Duomenys){
     std::ifstream fd("test" + s + ".md");
     duom duomenys;
     bool sauga = 0;
-    try {
-            if (!fd.good()){
-                throw "Failas neegzistuoja";
-        }
-        } catch (const char* msg){
-            cout << msg << endl;
-            sauga = 1;
-        }
+    if (!fd.good()){
+        throw "Failai neegzistuoja";
+    }
     int laik;
     std::string pvz;
     std::vector<int> Medv;
     while (!fd.eof()){
-        if (sauga) break;
-        
         int sum = 0, kas = 0;
         getline(fd, pvz);
         std::istringstream in_line(pvz);
@@ -115,42 +108,36 @@ void Skaiciavimai (duom& duomenys, int kas, std::vector<int>& Medv, int sum, int
 }
 
 
-void Rusiavimas (std::list<duom>& Duomenys, std::list<duom>& Minksti, std::list<duom>& Stiprus){
+void Rusiavimas (std::list<duom>& Duomenys, std::list<duom>& Minksti){
     std::list<duom>::iterator itr = Duomenys.begin();
     duom laik;
     for (itr; itr != Duomenys.end(); itr++){
-        if (itr -> galutinis > 5.0 && itr -> galmed > 5.0){
-            laik.var = itr -> var;
-            laik.pav = itr -> pav;
-            laik.galutinis = itr -> galutinis;
-            laik.galmed = itr -> galmed;
-            Stiprus.push_back(laik);
-        }
-        else {
+        if (itr -> galutinis < 5.0 && itr -> galmed < 5.0){
             laik.var = itr -> var;
             laik.pav = itr -> pav;
             laik.galutinis = itr -> galutinis;
             laik.galmed = itr -> galmed;
             Minksti.push_back(laik);
+            Duomenys.erase(itr);
+            itr--;
         }
     }
-    Duomenys.clear();
     
 }
 
-void Irasymas (std::list<duom>& Minksti, std::list<duom>& Stiprus){
-    std::ofstream fr1("Saunuoliai.md", std::ios::app);
-    std::ofstream fr2("Vargsiukai.md", std::ios::app);
+void Irasymas (std::list<duom>& Minksti, std::list<duom>& Duomenys){
+    std::ofstream fr2("Vargsiukai.md");
+    std::ofstream fr1("Saunuoliai.md");
     std::list<duom>::iterator it2 = Minksti.begin();
-    std::list<duom>::iterator it1 = Stiprus.begin();
+    std::list<duom>::iterator it1 = Duomenys.begin();
     for (it2; it2 != Minksti.end(); it2++){
         fr2 << it2 -> var << " " << it2 -> pav << " " << std::setprecision(3) << it2 -> galutinis << " " << it2 -> galmed << endl;
     }
-    for (it1; it1 != Stiprus.end(); it1++){
+    for (it1; it1 != Duomenys.end(); it1++){
         fr1 << it1 -> var << " " << it1 -> pav << " " << std::setprecision(3) << it1 -> galutinis << " " << it1 -> galmed << endl;
     }
-    fr1.close();
     fr2.close();
+    fr1.close();
     Minksti.clear();
-    Stiprus.clear();
+    Duomenys.clear();
 }
