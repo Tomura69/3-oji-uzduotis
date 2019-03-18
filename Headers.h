@@ -8,16 +8,15 @@
 #include <string.h>
 #include <fstream>
 #include <chrono>
-#include <iterator>
 #include <stdlib.h>
 #include <array>
 #include <random>
-#include <list>
 #include <algorithm>
 #include <cmath>
 #include <stdio.h>
 #include <deque>
 #include <sstream>
+
 
 using std::cout;
 using std::cin;
@@ -31,8 +30,8 @@ struct duom
 
 bool Patikra (std::string a);
 void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);
-void Skaitymas (int t, std::list<duom>& Duomenys);
+void Skaitymas (int t, int & m, std::deque<duom>& Duomenys);
 void Generavimas (int test);
-void Rusiavimas (std::list<duom>& Duomenys, std::list<duom>& Minksti);
-void Skaiciavimai (duom& duomenys, int kas, std::vector<int>& Med, int sum, int egz);
-void Irasymas (std::list<duom>& Minksti, std::list<duom>& Duomenys);
+void Rusiavimas (std::deque<duom>& Duomenys, std::deque<duom>& Minksti);
+void Skaiciavimai (std::deque<duom>& Duomenys, int m, int kas, std::deque<int>& Med, int sum, int egz);
+void Irasymas (std::deque<duom>& Minksti, std::deque<duom>& Duomenys);

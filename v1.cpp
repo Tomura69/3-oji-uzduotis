@@ -1,23 +1,22 @@
 #include "Headers.h"
 
 int main (int argc, char *argv[]){
-    const std::string eroras = "Blogai ivesti duomenys, kartokite ivedima";
-    int sum = 0, generuoti, didvar = 6, didpav = 7, stud;
+    const std::string eroras = "Blogai ivesti duomenys,  kartokite ivedima";
+    int m = 0, sum = 0, generuoti, didvar = 6, didpav = 7, stud;
     double tarp, egz, tarp2;
     bool lyginis, sauga = 0;
-    duom test;
-    std::list<duom> Test, Duomenys, Minksti;
+    std::deque<duom> Duomenys, Minksti;
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> range(1, 10);
 
-    cout << "Darbas su list:" << endl;
+    cout << "Darbas su deque:" << endl;
     int t = 10;
     for (int i = 0; i < 5; i++){
         auto startas = std::chrono::system_clock::now();
         try {
             //Generavimas (t);
-            Skaitymas (t, Duomenys);
+            Skaitymas (t, m, Duomenys);
             } catch (const char* msg){
                 cout << msg << endl;
                 sauga = 1;
@@ -49,22 +48,22 @@ int main (int argc, char *argv[]){
         cout << "Duomenu isvedimas uztruko: " << uztruko << " sekundziu" << endl;}
         cout << endl;
     }
-    
-     
+
+        
     while (true){
         sum = 0;
-        std::string laik;
         cout << "Ivesk varda ir pavarde" << endl;
+        Duomenys.push_back(duom());
         try {
-            cin >> test.var;
-            Patikra (test.var);
-            cin >> test.pav;
-            Patikra (test.pav);
+            cin >> Duomenys[m].var;
+            Patikra (Duomenys[m].var);
+            cin >> Duomenys[m].pav;
+            Patikra (Duomenys[m].pav);
         } catch (const char* msg){
             cout << msg << endl;
             continue;
         }
-        Ilgiausias (didvar, didpav, test.var, test.pav);
+        Ilgiausias (didvar, didpav, Duomenys[m].var, Duomenys[m].pav);
         char d;
         cout << "Jei norite, kad pazymiai butu generuojami atsitiktinai veskite 1, kitu atveju veskite 0" << endl;
         cin >> d;
@@ -90,21 +89,20 @@ int main (int argc, char *argv[]){
                 cout << eroras << endl;
                 continue;
             }
-            std::vector<int> Medv;
-            Medv.reserve(n);
+            std::deque<int> Medv;
+            //Medv.reserve(n);
             for (int i = 0; i < n; i++){
                 Medv.push_back(range(mt));
                 sum = sum + Medv[i];
             }
             egz = range(mt);
-            Skaiciavimai (test, n, Medv, sum, egz);
-            Test.push_back(test);
+            Skaiciavimai (Duomenys, m, n, Medv, sum, egz);
         }
         else {
             cout << "Ivesk namu darbu rezultatus, baige iveskite 0" << endl;
             char a;
             int n = 0;
-            std::vector<int> Medv;
+            std::deque<int> Medv;
             while (true){
                 cin >> a;
                 int o = a - '0';
@@ -154,21 +152,17 @@ int main (int argc, char *argv[]){
                 cout << eroras << endl;
                 continue;
             }
-            Skaiciavimai (test, n, Medv, sum, egz);
-            Test.push_back(test);
+            Skaiciavimai (Duomenys, m, n, Medv, sum, egz);
         }
-        
-        Test.sort([](const duom &f, const duom &s) { return f.var < s.var; });
+        std::sort(Duomenys.begin(), Duomenys.end(), [](const duom & a, const duom & b) { return a.var < b.var; });
         
         cout << endl;
         cout << std::left << std::setw(didvar + 1) << "Vardas" << std::left << std::setw(didpav + 1) << "Pavarde" << "VidGalutinis  " << "MedGalutinis" << endl;
         cout << std::string(didvar+didpav+27, '-') << endl;
-        std::list<duom>::iterator itr = Test.begin();
-        for (itr; itr != Test.end(); itr++){
-            cout << std::left << std::setw(didvar+1) << itr -> var << std::left << std::setw(didpav+1) << itr -> pav << std::left << std::setw(14) << std::setprecision(3) << itr -> galutinis << std::left << std::setprecision(3) << itr -> galmed << endl;
-
+        for (int i = 0; i <= m; i++){
+            cout << std::left << std::setw(didvar+1) << Duomenys[i].var << std::left << std::setw(didpav+1) << Duomenys[i].pav << std::left << std::setw(14) << std::setprecision(3) << Duomenys[i].galutinis << std::left << std::setprecision(3) << Duomenys[i].galmed << endl;
         }
-        std::advance(itr, 0);
+        m++;
         cout << endl;
     }
     return 0;
