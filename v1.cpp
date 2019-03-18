@@ -16,7 +16,7 @@ int main (int argc, char *argv[]){
     for (int i = 0; i < 5; i++){
         auto startas = std::chrono::system_clock::now();
         try {
-            Generavimas (t);
+            //Generavimas (t);
             Skaitymas (t, Duomenys);
             } catch (const char* msg){
                 cout << msg << endl;
@@ -85,6 +85,10 @@ int main (int argc, char *argv[]){
                     break;
                 }
                 n = n * y + a[i] - '0';
+            }
+            if (n == 0) {
+                cout << eroras << endl;
+                continue;
             }
             std::vector<int> Medv;
             Medv.reserve(n);
