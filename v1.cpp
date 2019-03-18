@@ -5,12 +5,12 @@ int main (int argc, char *argv[]){
     int m = 0, sum = 0, generuoti, didvar = 6, didpav = 7, stud;
     double tarp, egz, tarp2;
     bool lyginis, sauga = 0;
-    std::deque<duom> Duomenys, Minksti;
+    std::vector<duom> Duomenys, Minksti;
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> range(1, 10);
 
-    cout << "Darbas su deque:" << endl;
+    cout << "Darbas su vector:" << endl;
     int t = 10;
     for (int i = 0; i < 5; i++){
         auto startas = std::chrono::system_clock::now();
@@ -89,8 +89,8 @@ int main (int argc, char *argv[]){
                 cout << eroras << endl;
                 continue;
             }
-            std::deque<int> Medv;
-            //Medv.reserve(n);
+            std::vector<int> Medv;
+            Medv.reserve(n);
             for (int i = 0; i < n; i++){
                 Medv.push_back(range(mt));
                 sum = sum + Medv[i];
@@ -102,7 +102,7 @@ int main (int argc, char *argv[]){
             cout << "Ivesk namu darbu rezultatus, baige iveskite 0" << endl;
             char a;
             int n = 0;
-            std::deque<int> Medv;
+            std::vector<int> Medv;
             while (true){
                 cin >> a;
                 int o = a - '0';
