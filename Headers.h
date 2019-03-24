@@ -8,16 +8,15 @@
 #include <string.h>
 #include <fstream>
 #include <chrono>
-#include <iterator>
 #include <stdlib.h>
 #include <array>
 #include <random>
-#include <list>
 #include <algorithm>
 #include <cmath>
 #include <stdio.h>
 #include <deque>
 #include <sstream>
+
 
 using std::cout;
 using std::cin;
@@ -29,12 +28,13 @@ struct duom
     double galutinis, mediana, galmed;
 };
 
-typedef std::list<duom> Tipas;
+typedef std::deque<duom> Tipas;
 
 bool Patikra (std::string a);
 void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);
-void Skaitymas (int t, Tipas& Duomenys);
+void Skaitymas (int t, int & m, Tipas& Duomenys);
 void Generavimas (int test);
-void Rusiavimas (Tipas& Duomenys, Tipas& Minksti);
-void Skaiciavimai (duom& duomenys, int kas, std::vector<int>& Med, int sum, int egz);
+bool Skola(const duom & i);
+Tipas Rusiavimas (Tipas& Duomenys);
+void Skaiciavimai (Tipas& Duomenys, int m, int kas, std::vector<int>& Med, int sum, int egz);
 void Irasymas (Tipas& Minksti, Tipas& Duomenys);
