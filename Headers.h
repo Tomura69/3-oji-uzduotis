@@ -28,7 +28,7 @@ struct duom
     double galutinis, mediana, galmed;
 };
 
-typedef std::deque<duom> Tipas;
+typedef std::vector<duom> Tipas;
 
 bool Patikra (std::string a);
 void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);

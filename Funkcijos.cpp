@@ -44,7 +44,7 @@ void Generavimas (int test){
     fr.close();
 }
 
-void Skaitymas (int t, int & m, Tipas& Duomenys){
+void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
     std::string s = std::to_string(t);
     std::ifstream fd("test" + s + ".md");
     if (!fd.good()){
@@ -93,7 +93,7 @@ void Skaitymas (int t, int & m, Tipas& Duomenys){
     fd.close();
 }
 
-void Skaiciavimai (Tipas& Duomenys, int m, int kas, std::vector<int>& Medv, int sum, int egz){
+void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>& Medv, int sum, int egz){
     std::sort(Medv.begin(), Medv.end());
         
     bool lyginis = (kas%2 == 0);
@@ -109,6 +109,7 @@ void Skaiciavimai (Tipas& Duomenys, int m, int kas, std::vector<int>& Medv, int 
     Duomenys[m].galmed = 0.4*Duomenys[m].mediana+0.6*egz;
     Medv.clear();
 }
+
 
 bool Skola(const duom & i){
     return (i.galmed > 5 && i.galutinis > 5);
