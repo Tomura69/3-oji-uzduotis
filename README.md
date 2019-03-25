@@ -3,9 +3,10 @@ Obiektinio programavimo 2 užduotis
 ### Paleidimas
 
 Paleidimas: atsisiuntus bet kurio relyso source code failą, reikia atsidaryti konsolę (veikia tik ant mac ir unix os) ir parašyti žodį `make`.Tokiu būdu bus paleista programa. 
-  *Versijose nuo v0.1 iki v0.3 galima rašyti `make Run1`, norint paleisti programą su vektoriais. Parašius `make Run2`, bus paleista programa, kuri naudoja tik vektorius. 
-  *Versijose nuo v0.4 ir toliau, galima rašyti `make Clear`, taip bus ištrinti visi .md failai.
-  *Konsolėje parašius `make Clean`, bus ištrinti buildinimo failai ir `test` failai.
+
+- Versijose nuo v0.1 iki v0.3 galima rašyti `make Run1`, norint paleisti programą su vektoriais. Parašius `make Run2`, bus paleista programa, kuri naudoja tik vektorius. 
+- Versijose nuo v0.4 ir toliau, galima rašyti `make Clear`, taip bus ištrinti visi .md failai.
+- Konsolėje parašius `make Clean`, bus ištrinti buildinimo failai ir `test` failai.
   
 Toliau sekite instrukcijas konsolėje.
   
