@@ -1,9 +1,10 @@
-Run1:
-	g++ -o test v1.cpp Funkcijos.cpp
-	./test 
-Run2:
+Run:
 	g++ -o test v0.1Mas.cpp
 	./test
+RunVec:
+	g++ -o test v0.1Vec.cpp
+	./test
 Clean:
-	rm *.o test Vargsiukai.md Saunuoliai.md
-
+	rm test
+	rm *.o
+	
