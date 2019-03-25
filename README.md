@@ -15,6 +15,9 @@ Tokiu būdu bus paleista naujausia programa. Parašius make Run2, bus paleista v
 Parašius `make Clean`, bus ištrinti buildinimo failai ir `test` failai
 ### v0.4 ir toliau
 
+| Labas | KAzkas |
+|:---: | :---: |
+|:KAzkas: | :LAbas: |
 Programos tikslas yra ir patikrinti kaip sparčiai programa gali atlikti užduotį ir kaip jos vykdymo greitis priklauso nuo pradinių duomenų failo dydžio ir kiekio.
 
 ## Programos naudojimas
