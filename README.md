@@ -102,4 +102,8 @@ Duomenu isrusiavimas uztruko: 0.038717 sekundziu
 ### Išvados:
 Laikas priklauso
 
+<<<<<<< HEAD
 # Testavimui naudoju tokį pat failų skaičių ir tuos pačius failus.
+=======
+# Testavimui naudoju tokį pat failų skaičių ir tuos pačius failus.
+>>>>>>> 9d809c0b3d68fa8b6645e0131d244dd18f73b4fa
