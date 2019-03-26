@@ -12,21 +12,21 @@ Toliau sekite instrukcijas konsolėje.
   
 
 ### Versijos:
-### [v0.1]()
+### [v0.1](https://github.com/Tomura69/Atsiskaitymai/releases/tag/v0.1)
 
 
 Pirma programos versija turi nuskaityti duomenis, kuriuos vartotojas įvedinėja konsolėje.
 
 
-### [v0.2]()
+### [v0.2](https://github.com/Tomura69/Atsiskaitymai/releases/tag/v.0.2)
 
 Antra versija
 
-### [v0.3]()
+### [v0.3](https://github.com/Tomura69/Atsiskaitymai/releases/tag/v.0.3)
 
 Trečia versija
 
-### [v0.4]()
+### [v0.4](https://github.com/Tomura69/Atsiskaitymai/releases/tag/v.0.4)
 
 Ketvirta versija
 Skirtingų dydžių failų skirstymas:
@@ -38,7 +38,7 @@ Failo generavimas ir skaitymas uztruko: 0.80917 sekundziu
 Failo generavimas ir skaitymas uztruko: 7.41021 sekundziu
 ```
 
-### [v0.5]()
+### [v0.5](https://github.com/Tomura69/Atsiskaitymai/releases/tag/v.0.5)
 
 Penkta versija
 Vector:
@@ -57,7 +57,7 @@ Darbas su list:
 Duomenu isrusiavimas uztruko: 0.0639257 sekundziu
 ```
 
-### [v1]()
+### [v1](https://github.com/Tomura69/Atsiskaitymai/releases/tag/v.1)
 
 Pilna versija
 Laikai, naudojant antrą rūšiavimo būdą:
@@ -87,11 +87,13 @@ Darbas su list:
 Duomenu isrusiavimas uztruko: 0.02027 sekundziu
 ```
 
-### Papildoma užduotis
+### [Papildoma užduotis](https://github.com/Tomura69/Atsiskaitymai/releases/tag/Papildoma)
 
 Papildoma užduotis
 Vector:
 ```
+Darbas su vector:
+Duomenu isrusiavimas uztruko: 437.567 sekundziu
 ```
 Deque:
 ```
