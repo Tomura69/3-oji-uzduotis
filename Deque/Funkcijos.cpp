@@ -109,15 +109,23 @@ void Skaiciavimai (Tipas& Duomenys, int m, int kas, std::vector<int>& Medv, int 
     Medv.clear();
 }
 
-bool Skola(const duom & i){
-    return (i.galmed > 5 && i.galutinis > 5);
-}
-
 Tipas Rusiavimas (Tipas& Duomenys){
-    Tipas::iterator it =
-        std::stable_partition(Duomenys.begin(), Duomenys.end(), Skola);
-        Tipas Minksti(it, Duomenys.end());
-        Duomenys.erase(it, Duomenys.end());
+    Tipas::iterator it = Duomenys.begin();
+    Tipas Minksti;
+    int kelintas = 0;
+    for(it; it != Duomenys.end(); it++){
+        if (it -> galutinis < 5, it -> galmed < 5){
+            Minksti.push_back(*it);
+        }
+        else{
+            Duomenys.push_front(*it);
+            kelintas++;
+        }
+        
+    }
+    Duomenys.resize(kelintas);
+    Duomenys.shrink_to_fit();
+    
     return Minksti;
 }
 

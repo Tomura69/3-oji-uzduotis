@@ -9,6 +9,7 @@ int main (int argc, char *argv[]){
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> range(1, 10);
+    
 
     cout << "Darbas su deque:" << endl;
     int t = 10;
@@ -29,6 +30,8 @@ int main (int argc, char *argv[]){
         cout << t << "-ies dydzio failo " /*generavimas ir */"skaitymas uztruko: " << uztruko << " sekundziu" << endl;
         t = t * 10;
     }
+    
+    
     if (sauga){
         cout << "Rusiavimas neivyko, del nuskaitymo arba irasymo klaidos" << endl;
     }

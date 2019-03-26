@@ -21,7 +21,6 @@ int main (int argc, char *argv[]){
                 cout << msg << endl;
                 sauga = 1;
                 break;
-                
             }
         auto pabaiga = std::chrono::system_clock::now();
         auto uztruko = std::chrono::duration_cast<
@@ -34,7 +33,7 @@ int main (int argc, char *argv[]){
     }
     else {
         {auto startas = std::chrono::system_clock::now();
-        Minksti = Rusiavimas (Duomenys);
+        Minksti = Rusiavimas(Duomenys);
         auto pabaiga = std::chrono::system_clock::now();
         auto uztruko = std::chrono::duration_cast<
         std::chrono::duration<double> >(pabaiga - startas).count();
