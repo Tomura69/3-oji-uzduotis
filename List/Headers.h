@@ -29,10 +29,12 @@ struct duom
     double galutinis, mediana, galmed;
 };
 
+typedef std::list<duom> Tipas;
+
 bool Patikra (std::string a);
 void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);
-void Skaitymas (int t, std::list<duom>& Duomenys);
+void Skaitymas (int t, Tipas& Duomenys);
 void Generavimas (int test);
-void Rusiavimas (std::list<duom>& Duomenys, std::list<duom>& Minksti, std::list<duom>& Stiprus);
+void Rusiavimas (Tipas& Duomenys, Tipas& Minksti);
 void Skaiciavimai (duom& duomenys, int kas, std::vector<int>& Med, int sum, int egz);
-void Irasymas (std::list<duom>& Minksti, std::list<duom>& Stiprus);
+void Irasymas (Tipas& Minksti, Tipas& Duomenys);

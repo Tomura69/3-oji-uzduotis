@@ -47,20 +47,13 @@ void Generavimas (int test){
 void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
     std::string s = std::to_string(t);
     std::ifstream fd("test" + s + ".md");
-    bool sauga = 0;
-    try {
-            if (!fd.good()){
-                throw "Failas neegzistuoja";
-        }
-        } catch (const char* msg){
-            cout << msg << endl;
-            sauga = 1;
-        }
+    if (!fd.good()){
+        throw "Failai neegzistuoja";
+    }
     int laik;
     std::string pvz;
     std::vector<int> Medv;
     while (!fd.eof()){
-        if (sauga) break;
         
         int sum = 0, kas = 0;
         Duomenys.push_back(duom());
@@ -98,6 +91,7 @@ void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
     } 
     fd.close();
 }
+
 void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>& Medv, int sum, int egz){
     std::sort(Medv.begin(), Medv.end());
         
@@ -116,31 +110,29 @@ void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>
 }
 
 
-void Rusiavimas (int & m, std::vector<duom>& Duomenys, std::vector<duom>& Minksti, std::vector<duom>& Stiprus){
-    for (int i = 0; i < m; i++){
-        if (Duomenys[i].galutinis > 5.0 && Duomenys[i].galmed > 5.0){
-            Stiprus.push_back(Duomenys[i]);
-        }
-        else {
-            Minksti.push_back(Duomenys[i]);
-        }
-    }
-    m = 0;
-    Duomenys.clear();
-    
+bool Skola(const duom & i){
+    return (i.galmed > 5 && i.galutinis > 5);
 }
 
-void Irasymas (std::vector<duom>& Minksti, std::vector<duom>& Stiprus){
-    std::ofstream fr1("Saunuoliai.md", std::ios::app);
-    std::ofstream fr2("Vargsiukai.md", std::ios::app);
+Tipas Rusiavimas (Tipas& Duomenys){
+    Tipas::iterator it =
+        std::stable_partition(Duomenys.begin(), Duomenys.end(), Skola);
+        Tipas Minksti(it, Duomenys.end());
+        Duomenys.erase(it, Duomenys.end());
+    return Minksti;
+}
+
+void Irasymas (Tipas& Minksti, Tipas& Duomenys){
+    std::ofstream fr1("Saunuoliai.md");
+    std::ofstream fr2("Vargsiukai.md");
     for (int i = 0; i < Minksti.size(); i++){
         fr2 << Minksti[i].var << " " << Minksti[i].pav << " " << std::setprecision(3) << Minksti[i].galutinis << " " << Minksti[i].galmed << endl;
     }
-    for (int i = 0; i < Stiprus.size(); i++){
-        fr1 << Stiprus[i].var << " " << Stiprus[i].pav << " " << std::setprecision(3) << Stiprus[i].galutinis << " " << Stiprus[i].galmed << endl;
+    for (int i = 0; i < Duomenys.size(); i++){
+        fr1 << Duomenys[i].var << " " << Duomenys[i].pav << " " << std::setprecision(3) << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
     }
     fr1.close();
     fr2.close();
     Minksti.clear();
-    Stiprus.clear();
+    Duomenys.clear();
 }

@@ -1,59 +1,70 @@
 #include "Headers.h"
 
 int main (int argc, char *argv[]){
-    const std::string eroras = "Blogai ivesti duomenys";
-    int m = 0, sum = 0, generuoti, didvar = 6, didpav = 7, stud;
+    const std::string eroras = "Blogai ivesti duomenys, kartokite ivedima";
+    int sum = 0, generuoti, didvar = 6, didpav = 7, stud;
     double tarp, egz, tarp2;
-    bool lyginis;
-    std::deque<duom> Duomenys, Minksti, Stiprus;
+    bool lyginis, sauga = 0;
+    duom test;
+    Tipas Test, Duomenys, Minksti;
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> range(1, 10);
 
-    cout << "Darbas su deque:" << endl;
+    cout << "Darbas su list:" << endl;
     int t = 10;
     for (int i = 0; i < 5; i++){
         auto startas = std::chrono::system_clock::now();
-        Generavimas (t);
-        Skaitymas (t, m, Duomenys);
+        try {
+            Generavimas (t);
+            Skaitymas (t, Duomenys);
+            } catch (const char* msg){
+                cout << msg << endl;
+                sauga = 1;
+                break;
+                
+            }
         auto pabaiga = std::chrono::system_clock::now();
         auto uztruko = std::chrono::duration_cast<
         std::chrono::duration<double> >(pabaiga - startas).count();
         cout << t << "-ies dydzio failo " /*generavimas ir */"skaitymas uztruko: " << uztruko << " sekundziu" << endl;
         t = t * 10;
     }
+    if (sauga){
+        cout << "Rusiavimas neivyko, del nuskaitymo arba irasymo klaidos" << endl;
+    }
+    else {
+        {auto startas = std::chrono::system_clock::now();
+        Rusiavimas (Duomenys, Minksti);
+        auto pabaiga = std::chrono::system_clock::now();
+        auto uztruko = std::chrono::duration_cast<
+        std::chrono::duration<double> >(pabaiga - startas).count();
+        cout << "Duomenu isrusiavimas uztruko: " << uztruko << " sekundziu" << endl;}
+        
+        {auto startas = std::chrono::system_clock::now();
+        Irasymas (Minksti, Duomenys);
+        auto pabaiga = std::chrono::system_clock::now();
+        auto uztruko = std::chrono::duration_cast<
+        std::chrono::duration<double> >(pabaiga - startas).count();
+        cout << "Duomenu isvedimas uztruko: " << uztruko << " sekundziu" << endl;}
+        cout << endl;
+    }
     
-
-    {auto startas = std::chrono::system_clock::now();
-    Rusiavimas (m, Duomenys, Minksti, Stiprus);
-    auto pabaiga = std::chrono::system_clock::now();
-    auto uztruko = std::chrono::duration_cast<
-    std::chrono::duration<double> >(pabaiga - startas).count();
-    cout << "Duomenu isrusiavimas uztruko: " << uztruko << " sekundziu" << endl;}
-        
-    {auto startas = std::chrono::system_clock::now();
-    Irasymas (Minksti, Stiprus);
-    auto pabaiga = std::chrono::system_clock::now();
-    auto uztruko = std::chrono::duration_cast<
-    std::chrono::duration<double> >(pabaiga - startas).count();
-    cout << "Duomenu isvedimas uztruko: " << uztruko << " sekundziu" << endl;}
-    cout << endl;
-
-        
+     
     while (true){
         sum = 0;
+        std::string laik;
         cout << "Ivesk varda ir pavarde" << endl;
-        Duomenys.push_back(duom());
         try {
-            cin >> Duomenys[m].var;
-            Patikra (Duomenys[m].var);
-            cin >> Duomenys[m].pav;
-            Patikra (Duomenys[m].pav);
+            cin >> test.var;
+            Patikra (test.var);
+            cin >> test.pav;
+            Patikra (test.pav);
         } catch (const char* msg){
             cout << msg << endl;
             continue;
         }
-        Ilgiausias (didvar, didpav, Duomenys[m].var, Duomenys[m].pav);
+        Ilgiausias (didvar, didpav, test.var, test.pav);
         char d;
         cout << "Jei norite, kad pazymiai butu generuojami atsitiktinai veskite 1, kitu atveju veskite 0" << endl;
         cin >> d;
@@ -64,21 +75,36 @@ int main (int argc, char *argv[]){
         }
         if (generuoti){
             int n = 0;
+            std::string a;
             cout << "Kiek generuoti skaiciu" << endl;
-            cin >> n;
-            std::deque<int> Medv;
+            cin >> a;
+            int y = 10;
+            for (int i = 0; i < a.size(); i++){
+                if (isalpha(a[i]) != 0){
+                    cout << eroras << endl;
+                    break;
+                }
+                n = n * y + a[i] - '0';
+            }
+            if (n == 0) {
+                cout << eroras << endl;
+                continue;
+            }
+            std::vector<int> Medv;
+            Medv.reserve(n);
             for (int i = 0; i < n; i++){
                 Medv.push_back(range(mt));
                 sum = sum + Medv[i];
             }
             egz = range(mt);
-            Skaiciavimai (Duomenys, m, n, Medv, sum, egz);
+            Skaiciavimai (test, n, Medv, sum, egz);
+            Test.push_back(test);
         }
         else {
             cout << "Ivesk namu darbu rezultatus, baige iveskite 0" << endl;
             char a;
             int n = 0;
-            std::deque<int> Medv;
+            std::vector<int> Medv;
             while (true){
                 cin >> a;
                 int o = a - '0';
@@ -109,7 +135,6 @@ int main (int argc, char *argv[]){
                 }
                 n--;
             }
-            cout << endl;
             int l = n;
             for (int p = 0; p < l; p++){
                 if (Medv[p] > 10 || Medv[p] <= 0){
@@ -129,23 +154,21 @@ int main (int argc, char *argv[]){
                 cout << eroras << endl;
                 continue;
             }
-            Skaiciavimai (Duomenys, m, n, Medv, sum, egz);
-        }
-        for (int i = 0; i <= m; i++) {
-	        for (int j = 0; j <= m; j++) {
-		        if (Duomenys[i].var < Duomenys[j].var){
-                    std::swap(Duomenys[i], Duomenys[j]);
-                }
-            }
+            Skaiciavimai (test, n, Medv, sum, egz);
+            Test.push_back(test);
         }
         
+        Test.sort([](const duom &f, const duom &s) { return f.var < s.var; });
+
         cout << endl;
         cout << std::left << std::setw(didvar + 1) << "Vardas" << std::left << std::setw(didpav + 1) << "Pavarde" << "VidGalutinis  " << "MedGalutinis" << endl;
         cout << std::string(didvar+didpav+27, '-') << endl;
-        for (int i = 0; i <= m; i++){
-            cout << std::left << std::setw(didvar+1) << Duomenys[i].var << std::left << std::setw(didpav+1) << Duomenys[i].pav << std::left << std::setw(14) << std::setprecision(3) << Duomenys[i].galutinis << std::left << std::setprecision(3) << Duomenys[i].galmed << endl;
+        Tipas::iterator itr = Test.begin();
+        for (itr; itr != Test.end(); itr++){
+            cout << std::left << std::setw(didvar+1) << itr -> var << std::left << std::setw(didpav+1) << itr -> pav << std::left << std::setw(14) << std::setprecision(3) << itr -> galutinis << std::left << std::setprecision(3) << itr -> galmed << endl;
+
         }
-        m++;
+        std::advance(itr, 0);
         cout << endl;
     }
     return 0;

@@ -17,6 +17,7 @@
 #include <deque>
 #include <sstream>
 
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -27,10 +28,13 @@ struct duom
     double galutinis, mediana, galmed;
 };
 
+typedef std::vector<duom> Tipas;
+
 bool Patikra (std::string a);
 void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);
-void Skaitymas (int t, int & m, std::vector<duom>& Duomenys);
+void Skaitymas (int t, int & m, Tipas& Duomenys);
 void Generavimas (int test);
-void Rusiavimas (int & m, std::vector<duom>& Duomenys, std::vector<duom>& Minksti, std::vector<duom>& Stiprus);
-void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>& Med, int sum, int egz);
-void Irasymas (std::vector<duom>& Minksti, std::vector<duom>& Stiprus);
+bool Skola(const duom & i);
+Tipas Rusiavimas (Tipas& Duomenys);
+void Skaiciavimai (Tipas& Duomenys, int m, int kas, std::vector<int>& Med, int sum, int egz);
+void Irasymas (Tipas& Minksti, Tipas& Duomenys);

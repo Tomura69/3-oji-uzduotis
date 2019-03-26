@@ -28,10 +28,13 @@ struct duom
     double galutinis, mediana, galmed;
 };
 
+typedef std::deque<duom> Tipas;
+
 bool Patikra (std::string a);
 void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);
-void Skaitymas (int t, int & m, std::deque<duom>& Duomenys);
+void Skaitymas (int t, int & m, Tipas& Duomenys);
 void Generavimas (int test);
-void Rusiavimas (int & m, std::deque<duom>& Duomenys, std::deque<duom>& Minksti, std::deque<duom>& Stiprus);
-void Skaiciavimai (std::deque<duom>& Duomenys, int m, int kas, std::deque<int>& Med, int sum, int egz);
-void Irasymas (std::deque<duom>& Minksti, std::deque<duom>& Stiprus);
+bool Skola(const duom & i);
+Tipas Rusiavimas (Tipas& Duomenys);
+void Skaiciavimai (Tipas& Duomenys, int m, int kas, std::vector<int>& Med, int sum, int egz);
+void Irasymas (Tipas& Minksti, Tipas& Duomenys);

@@ -1,47 +1,59 @@
 #include "Headers.h"
 
 int main (int argc, char *argv[]){
-    const std::string eroras = "Blogai ivesti duomenys";
-    int m = 0, sum = 0, generuoti, didvar = 6, didpav = 7, stud;
+    const std::string eroras = "Blogai ivesti duomenys,  kartokite ivedima";
+    int m = 0, generuoti, didvar = 6, didpav = 7, stud;
     double tarp, egz, tarp2;
-    bool lyginis;
-    std::vector<duom> Duomenys, Minksti, Stiprus;
+    bool lyginis, sauga = 0;
+    Tipas Duomenys, Minksti;
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> range(1, 10);
 
-    cout << "Darbas su vektor:" << endl;
+    cout << "Darbas su deque:" << endl;
     int t = 10;
     for (int i = 0; i < 5; i++){
         auto startas = std::chrono::system_clock::now();
-        Generavimas (t);
-        Skaitymas (t, m, Duomenys);
+        try {
+            Generavimas (t);
+            Skaitymas (t, m, Duomenys);
+            } catch (const char* msg){
+                cout << msg << endl;
+                sauga = 1;
+                break;
+                
+            }
         auto pabaiga = std::chrono::system_clock::now();
         auto uztruko = std::chrono::duration_cast<
         std::chrono::duration<double> >(pabaiga - startas).count();
         cout << t << "-ies dydzio failo " /*generavimas ir */"skaitymas uztruko: " << uztruko << " sekundziu" << endl;
         t = t * 10;
     }
-
-    {auto startas = std::chrono::system_clock::now();
-    Rusiavimas (m, Duomenys, Minksti, Stiprus);
-    auto pabaiga = std::chrono::system_clock::now();
-    auto uztruko = std::chrono::duration_cast<
-    std::chrono::duration<double> >(pabaiga - startas).count();
-    cout << "Duomenu isrusiavimas uztruko: " << uztruko << " sekundziu" << endl;}
+    if (sauga){
+        cout << "Rusiavimas neivyko, del nuskaitymo arba irasymo klaidos" << endl;
+    }
+    else {
+        {auto startas = std::chrono::system_clock::now();
+        Minksti = Rusiavimas (Duomenys);
+        auto pabaiga = std::chrono::system_clock::now();
+        auto uztruko = std::chrono::duration_cast<
+        std::chrono::duration<double> >(pabaiga - startas).count();
+        cout << "Duomenu isrusiavimas uztruko: " << uztruko << " sekundziu" << endl;}
         
-    {auto startas = std::chrono::system_clock::now();
-    Irasymas (Minksti, Stiprus);
-    auto pabaiga = std::chrono::system_clock::now();
-    auto uztruko = std::chrono::duration_cast<
-    std::chrono::duration<double> >(pabaiga - startas).count();
-    cout << "Duomenu isvedimas uztruko: " << uztruko << " sekundziu" << endl;}
-    cout << endl;
+        {auto startas = std::chrono::system_clock::now();
+        Irasymas (Minksti, Duomenys);
+        auto pabaiga = std::chrono::system_clock::now();
+        auto uztruko = std::chrono::duration_cast<
+        std::chrono::duration<double> >(pabaiga - startas).count();
+        cout << "Duomenu isvedimas uztruko: " << uztruko << " sekundziu" << endl;}
+        cout << endl;
+    }
 
+    m = 0;
+    Duomenys.push_back(duom());
     while (true){
-        sum = 0;
+        int sum = 0;
         cout << "Ivesk varda ir pavarde" << endl;
-        Duomenys.push_back(duom());
         try {
             cin >> Duomenys[m].var;
             Patikra (Duomenys[m].var);
@@ -62,8 +74,21 @@ int main (int argc, char *argv[]){
         }
         if (generuoti){
             int n = 0;
+            std::string a;
             cout << "Kiek generuoti skaiciu" << endl;
-            cin >> n;
+            cin >> a;
+            int y = 10;
+            for (int i = 0; i < a.size(); i++){
+                if (isalpha(a[i]) != 0){
+                    cout << eroras << endl;
+                    break;
+                }
+                n = n * y + a[i] - '0';
+            }
+            if (n == 0) {
+                cout << eroras << endl;
+                continue;
+            }
             std::vector<int> Medv;
             Medv.reserve(n);
             for (int i = 0; i < n; i++){
@@ -129,13 +154,7 @@ int main (int argc, char *argv[]){
             }
             Skaiciavimai (Duomenys, m, n, Medv, sum, egz);
         }
-        for (int i = 0; i <= m; i++) {
-	        for (int j = 0; j <= m; j++) {
-		        if (Duomenys[i].var < Duomenys[j].var){
-                    std::swap(Duomenys[i], Duomenys[j]);
-                }
-            }
-        }
+        std::sort(Duomenys.begin(), Duomenys.end(), [](const duom & a, const duom & b) { return a.var < b.var; });
         
         cout << endl;
         cout << std::left << std::setw(didvar + 1) << "Vardas" << std::left << std::setw(didpav + 1) << "Pavarde" << "VidGalutinis  " << "MedGalutinis" << endl;
@@ -144,6 +163,7 @@ int main (int argc, char *argv[]){
             cout << std::left << std::setw(didvar+1) << Duomenys[i].var << std::left << std::setw(didpav+1) << Duomenys[i].pav << std::left << std::setw(14) << std::setprecision(3) << Duomenys[i].galutinis << std::left << std::setprecision(3) << Duomenys[i].galmed << endl;
         }
         m++;
+        Duomenys.push_back(duom());
         cout << endl;
     }
     return 0;
