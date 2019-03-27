@@ -93,6 +93,7 @@ Duomenu isrusiavimas uztruko: 0.02027 sekundziu
 ### [Papildoma užduotis](https://github.com/Tomura69/Atsiskaitymai/releases/tag/Papildoma)
 
 Papildoma užduotis skirta patikrinti rūšiavimo būdą, kada naudoti `std::deque` yra palankiausia. T.y. Norint išrūšiuoti studentus minkšti studentai dedami į naują vektorių, o stiprūs studentai įdedami į pirminio vektoriaus pradžią ir paskui nukertamas tame taške, kur baigiasi stiprūs studentai. Naudojant vektorių buvo naudojama `insert` funkcija, o naudojant deque pasitelkta `push_front` funkcija. Apačioje pateikiami programos veikimo laikai.
+
 Vector:
 ```
 Darbas su vector:
