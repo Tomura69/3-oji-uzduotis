@@ -2,16 +2,15 @@
 
 int main (int argc, char *argv[]){
     const std::string eroras = "Blogai ivesti duomenys,  kartokite ivedima";
-    int m = 0, generuoti, didvar = 6, didpav = 7, stud;
+    int m = 0, sum = 0, generuoti, didvar = 6, didpav = 7, stud;
     double tarp, egz, tarp2;
     bool lyginis, sauga = 0;
     Tipas Duomenys, Minksti;
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> range(1, 10);
-    
 
-    cout << "Darbas su deque:" << endl;
+    cout << "Darbas su vector:" << endl;
     int t = 10;
     for (int i = 0; i < 5; i++){
         auto startas = std::chrono::system_clock::now();
@@ -30,8 +29,6 @@ int main (int argc, char *argv[]){
         cout << t << "-ies dydzio failo " /*generavimas ir */"skaitymas uztruko: " << uztruko << " sekundziu" << endl;
         t = t * 10;
     }
-    
-    
     if (sauga){
         cout << "Rusiavimas neivyko, del nuskaitymo arba irasymo klaidos" << endl;
     }
@@ -55,7 +52,7 @@ int main (int argc, char *argv[]){
     m = 0;
     Duomenys.push_back(duom());
     while (true){
-        int sum = 0;
+        sum = 0;
         cout << "Ivesk varda ir pavarde" << endl;
         try {
             cin >> Duomenys[m].var;

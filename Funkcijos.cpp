@@ -44,7 +44,7 @@ void Generavimas (int test){
     fr.close();
 }
 
-void Skaitymas (int t, int & m, Tipas& Duomenys){
+void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
     std::string s = std::to_string(t);
     std::ifstream fd("test" + s + ".md");
     if (!fd.good()){
@@ -88,11 +88,11 @@ void Skaitymas (int t, int & m, Tipas& Duomenys){
         sum = sum - egz;
         Skaiciavimai (Duomenys, m, kas, Medv, sum, egz);
         m++;
-    }
+    } 
     fd.close();
 }
 
-void Skaiciavimai (Tipas& Duomenys, int m, int kas, std::vector<int>& Medv, int sum, int egz){
+void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>& Medv, int sum, int egz){
     std::sort(Medv.begin(), Medv.end());
         
     bool lyginis = (kas%2 == 0);
@@ -109,23 +109,16 @@ void Skaiciavimai (Tipas& Duomenys, int m, int kas, std::vector<int>& Medv, int 
     Medv.clear();
 }
 
+
+bool Skola(const duom & i){
+    return (i.galmed > 5 && i.galutinis > 5);
+}
+
 Tipas Rusiavimas (Tipas& Duomenys){
-    Tipas::iterator it = Duomenys.begin();
-    Tipas Minksti;
-    int kelintas = 0;
-    for(it; it != Duomenys.end(); it++){
-        if (it -> galutinis < 5, it -> galmed < 5){
-            Minksti.push_back(*it);
-        }
-        else{
-            Duomenys.push_front(*it);
-            kelintas++;
-        }
-        
-    }
-    Duomenys.resize(kelintas);
-    Duomenys.shrink_to_fit();
-    
+    Tipas::iterator it =
+        std::stable_partition(Duomenys.begin(), Duomenys.end(), Skola);
+        Tipas Minksti(it, Duomenys.end());
+        Duomenys.erase(it, Duomenys.end());
     return Minksti;
 }
 
