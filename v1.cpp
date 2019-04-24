@@ -4,6 +4,7 @@ int main (int argc, char *argv[]){
     const std::string eroras = "Blogai ivesti duomenys,  kartokite ivedima";
     int m = 0, sum = 0, generuoti, didvar = 6, didpav = 7, stud;
     double tarp, egz, tarp2;
+    int a;
     bool lyginis, sauga = 0;
     Tipas Duomenys, Minksti;
     std::random_device rd;
