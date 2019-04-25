@@ -21,20 +21,20 @@ void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav){
 }
 
 
-void Generavimas (int test){
+void Generavimas (int dydis){
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> range(1, 10);
-    std::string s = std::to_string(test);
+    std::string s = std::to_string(dydis);
     std::ofstream fr("test" + s + ".md");
     if (fr.is_open()){
-        for (int i = 1; i <= test; i++){
+        for (int i = 1; i <= dydis; i++){
             std::string s = std::to_string(i);
             fr << "Vardas" + s << " Pavarde" + s;
             for (int y = 0; y < 10; y++){
                 fr << " " << range(mt);
             }
-            if (i != test)
+            if (i != dydis)
             fr << endl;
         }
     }
@@ -44,8 +44,9 @@ void Generavimas (int test){
     fr.close();
 }
 
-void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
-    std::string s = std::to_string(t);
+
+void Skaitymas (int dydis, int & m, TipasC& Studentai){
+    std::string s = std::to_string(dydis);
     std::ifstream fd("test" + s + ".md");
     if (!fd.good()){
         throw "Failai neegzistuoja";
@@ -56,83 +57,87 @@ void Skaitymas (int t, int & m, std::vector<duom>& Duomenys){
     while (!fd.eof()){
         
         int sum = 0, kas = 0;
-        Duomenys.push_back(duom());
+        std::string var, pav;
+        Studentai.push_back(Studentas());
         getline(fd, pvz);
         std::istringstream in_line(pvz);
         try {
-            in_line >> Duomenys[m].var;
+            in_line >> var;
             //Patikra (Duomenys[m].var);
-            in_line >> Duomenys[m].pav;
+            in_line >> pav;
             //Patikra (Duomenys[m].pav);
+            Studentai[m].skaitymas_vard(var, pav);
         } catch (const char* msg){
             cout << msg << endl;
         }
+        
         while (in_line >> laik){
-            if (laik == 0){
-                cout << "Blogai ivesti duomenys pas studenta: " << Duomenys[m].var << ", " << t << "-ame faile" << endl;
+            if (laik <= 0){
+                cout << "Blogai ivesti duomenys pas studenta: " << Studentai[m].Vardas() << ", " << dydis << "-ame faile" << endl;
                 sum = 0;
                 break;
             }
             sum = sum + laik;
-            Medv.push_back(int());
-            Medv[kas] = laik;
+            Studentai[m].skaitymas_Nd(laik);
             kas++;
         }
 
-        if (Medv.empty()){
-            cout << "Blogai ivesti duomenys " << t << "-ame faile" << endl;
+        if (Studentai[m].Empty()){
+            cout << "Blogai ivesti duomenys " << dydis << "-ame faile" << endl;
             break;
         }
-        int egz = Medv[kas-1];
+        int egz = Studentai[m].Nd(kas-1);
         kas--;
+        Studentai[m].popBack();
         sum = sum - egz;
-        Skaiciavimai (Duomenys, m, kas, Medv, sum, egz);
+        Skaiciavimai (Studentai, m, kas, sum, egz);
         m++;
     } 
     fd.close();
 }
 
-void Skaiciavimai (std::vector<duom>& Duomenys, int m, int kas, std::vector<int>& Medv, int sum, int egz){
-    std::sort(Medv.begin(), Medv.end());
-        
+void Skaiciavimai (TipasC& Studentai, int m, int kas, int sum, int egz){
+    
+    Studentai[m].Rikiuoti();    
     bool lyginis = (kas%2 == 0);
     if (lyginis){
-        double tarp2 = (Medv[kas/2-1] + Medv[kas/2]) / 2.0;
-        Duomenys[m].mediana = tarp2;
+        double med = (Studentai[m].Nd(kas/2-1) + Studentai[m].Nd(kas/2)) / 2.0;
+        double gal = 0.4*((double)sum / kas)+0.6*egz;
+        double galmed = 0.4*med+0.6*egz;
+        Studentai[m].Vidurkis(gal, med, galmed);
     }
     else {
-        Duomenys[m].mediana = Medv[(kas/2)];
+        double med = Studentai[m].Nd(kas/2);
+        double gal = 0.4*((double)sum / kas)+0.6*egz;
+        double galmed = 0.4*med+0.6*egz;
+        Studentai[m].Vidurkis(gal, med, galmed);
     }
-    double tarp = 0.4*((double)sum / kas)+0.6*egz;
-    Duomenys[m].galutinis = tarp;
-    Duomenys[m].galmed = 0.4*Duomenys[m].mediana+0.6*egz;
-    Medv.clear();
 }
 
 
-bool Skola(const duom & i){
-    return (i.galmed > 5 && i.galutinis > 5);
+bool Skola(const Studentas & i){
+    return (i.MedVid() > 5 && i.Vidurkis() > 5);
 }
 
-Tipas Rusiavimas (Tipas& Duomenys){
-    Tipas::iterator it =
-        std::stable_partition(Duomenys.begin(), Duomenys.end(), Skola);
-        Tipas Minksti(it, Duomenys.end());
-        Duomenys.erase(it, Duomenys.end());
+TipasC Rusiavimas (TipasC& Studentai){
+    TipasC::iterator it =
+        std::stable_partition(Studentai.begin(), Studentai.end(), Skola);
+        TipasC Minksti(it, Studentai.end());
+        Studentai.erase(it, Studentai.end());
     return Minksti;
 }
 
-void Irasymas (Tipas& Minksti, Tipas& Duomenys){
+void Irasymas (TipasC& Minksti, TipasC& Studentai){
     std::ofstream fr1("Saunuoliai.md");
     std::ofstream fr2("Vargsiukai.md");
     for (int i = 0; i < Minksti.size(); i++){
-        fr2 << Minksti[i].var << " " << Minksti[i].pav << " " << std::setprecision(3) << Minksti[i].galutinis << " " << Minksti[i].galmed << endl;
+        fr2 << Minksti[i].Vardas() << " " << Minksti[i].Pavarde() << " " << std::setprecision(3) << Minksti[i].Vidurkis() << " " << Minksti[i].MedVid() << endl;
     }
-    for (int i = 0; i < Duomenys.size(); i++){
-        fr1 << Duomenys[i].var << " " << Duomenys[i].pav << " " << std::setprecision(3) << Duomenys[i].galutinis << " " << Duomenys[i].galmed << endl;
+    for (int i = 0; i < Studentai.size(); i++){
+        fr1 << Studentai[i].Vardas() << " " << Studentai[i].Pavarde() << " " << std::setprecision(3) << Studentai[i].Vidurkis() << " " << Studentai[i].MedVid() << endl;
     }
     fr1.close();
     fr2.close();
     Minksti.clear();
-    Duomenys.clear();
+    Studentai.clear();
 }

@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <deque>
 #include <sstream>
+#include "classStud.h"
 
 
 using std::cout;
@@ -28,13 +29,13 @@ struct duom
     double galutinis, mediana, galmed;
 };
 
-typedef std::vector<duom> Tipas;
+typedef std::vector<Studentas> TipasC;
 
 bool Patikra (std::string a);
 void Ilgiausias (int & didvar, int & didpav, std::string var, std::string pav);
-void Skaitymas (int t, int & m, Tipas& Duomenys);
-void Generavimas (int test);
-bool Skola(const duom & i);
-Tipas Rusiavimas (Tipas& Duomenys);
-void Skaiciavimai (Tipas& Duomenys, int m, int kas, std::vector<int>& Med, int sum, int egz);
-void Irasymas (Tipas& Minksti, Tipas& Duomenys);
+void Skaitymas (int dydis, int & m, TipasC& Studentai);
+void Generavimas (int dydis);
+bool Skola(const Studentas & i);
+TipasC Rusiavimas (TipasC& Studentai);
+void Skaiciavimai (TipasC& Studentai, int m, int kas, int sum, int egz);
+void Irasymas (TipasC& Minksti, TipasC& Studentai);
