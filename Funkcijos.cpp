@@ -116,7 +116,7 @@ void Skaiciavimai (TipasC& Studentai, int m, int kas, int sum, int egz){
 
 
 bool Skola(const Studentas & i){
-    return (i.MedVid() > 5 && i.Vidurkis() > 5);
+    return (i > 5 && i > 5);
 }
 
 TipasC Rusiavimas (TipasC& Studentai){
@@ -131,10 +131,10 @@ void Irasymas (TipasC& Minksti, TipasC& Studentai){
     std::ofstream fr1("Saunuoliai.md");
     std::ofstream fr2("Vargsiukai.md");
     for (int i = 0; i < Minksti.size(); i++){
-        fr2 << Minksti[i].Vardas() << " " << Minksti[i].Pavarde() << " " << std::setprecision(3) << Minksti[i].Vidurkis() << " " << Minksti[i].MedVid() << endl;
+        fr2 << Minksti[i] << endl;
     }
     for (int i = 0; i < Studentai.size(); i++){
-        fr1 << Studentai[i].Vardas() << " " << Studentai[i].Pavarde() << " " << std::setprecision(3) << Studentai[i].Vidurkis() << " " << Studentai[i].MedVid() << endl;
+        fr1 << Studentai[i] << endl;
     }
     fr1.close();
     fr2.close();
