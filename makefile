@@ -1,6 +1,7 @@
 Run:
 	g++ -o test v1.cpp Funkcijos.cpp classFun.cpp
-	./test 
+	./test
+	rm test 
 Clean:
 	rm test Vargsiukai.md Saunuoliai.md
 Clear:

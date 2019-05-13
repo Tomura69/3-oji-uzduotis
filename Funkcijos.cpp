@@ -53,7 +53,6 @@ void Skaitymas (int dydis, int & m, TipasC& Studentai){
     }
     int laik;
     std::string pvz;
-    std::vector<int> Medv;
     while (!fd.eof()){
         
         int sum = 0, kas = 0;

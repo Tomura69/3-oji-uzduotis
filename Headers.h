@@ -23,12 +23,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-struct duom
-{
-    std::string var, pav;
-    double galutinis, mediana, galmed;
-};
-
 typedef std::vector<Studentas> TipasC;
 
 bool Patikra (std::string a);

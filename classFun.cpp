@@ -1,11 +1,20 @@
 #include "classStud.h"
 
-Studentas::Studentas() {
-}
-void Studentas::skaitymas_vard (std::string var_, std::string pav_){
+void Human::skaitymas_vard (std::string var_, std::string pav_){
     var = var_;
     pav = pav_;
 }
+/*Studentas::Studentas (const Studentas& a) {
+    std::cout << "konstruktorius su obiektu" << std::endl;
+    var = a.var;
+    pav = a.pav;
+    galutinis = a.galutinis;
+    mediana = a.mediana;
+    galmed = a.galmed;
+    for (int i = 0; i < a.nd.size(); i++){
+        nd[i] = a.nd[i];
+    }
+}*/
 void Studentas::Vidurkis (double galutinis_, double mediana_, double galmed_){
     galutinis = galutinis_;
     mediana = mediana_;
