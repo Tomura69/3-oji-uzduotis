@@ -23,7 +23,6 @@ class Studentas : public Human{
     public:
         //Seteriai
         Studentas() {};
-        //Studentas (const  Studentas& a);
         ~Studentas(){
             nd.clear();
         }

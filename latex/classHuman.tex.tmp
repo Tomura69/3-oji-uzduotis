@@ -1,0 +1,39 @@
+\hypertarget{classHuman}{}\section{Human Class Reference}
+\label{classHuman}\index{Human@{Human}}
+
+
+Inheritance diagram for Human\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHuman_a62472e8d6c8f0764a61ccd92d1f1b0df}\label{classHuman_a62472e8d6c8f0764a61ccd92d1f1b0df}} 
+void {\bfseries skaitymas\+\_\+vard} (std\+::string var\+\_\+, std\+::string pav\+\_\+)
+\item 
+\mbox{\Hypertarget{classHuman_a436dcbce500aa572578d51cd131acda6}\label{classHuman_a436dcbce500aa572578d51cd131acda6}} 
+virtual std\+::string {\bfseries Vardas} () const
+\item 
+\mbox{\Hypertarget{classHuman_a62dcfb25f00fe4e76225f7d469d3280e}\label{classHuman_a62dcfb25f00fe4e76225f7d469d3280e}} 
+virtual std\+::string {\bfseries Pavarde} () const
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHuman_a81b5b011a9dee6662f01d8c81fe3df1b}\label{classHuman_a81b5b011a9dee6662f01d8c81fe3df1b}} 
+{\bfseries Human} (std\+::string v, std\+::string p)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHuman_a727ddb12e264289ea013ed5067a1bc42}\label{classHuman_a727ddb12e264289ea013ed5067a1bc42}} 
+std\+::string {\bfseries var}
+\item 
+\mbox{\Hypertarget{classHuman_a180aeeb273594650d0ede62c4e44ba11}\label{classHuman_a180aeeb273594650d0ede62c4e44ba11}} 
+std\+::string {\bfseries pav}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+class\+Stud.\+h\item 
+class\+Fun.\+cpp\end{DoxyCompactItemize}

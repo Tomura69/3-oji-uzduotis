@@ -62,9 +62,13 @@ void Skaitymas (int dydis, int & m, TipasC& Studentai){
         std::istringstream in_line(pvz);
         try {
             in_line >> var;
-            //Patikra (Duomenys[m].var);
+            ///
+            ///Patikra (Duomenys[m].var);
+            ///
             in_line >> pav;
-            //Patikra (Duomenys[m].pav);
+            ///
+            ///Patikra (Duomenys[m].pav);
+            ///
             Studentai[m].skaitymas_vard(var, pav);
         } catch (const char* msg){
             cout << msg << endl;
