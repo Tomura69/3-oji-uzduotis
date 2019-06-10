@@ -22,7 +22,17 @@ class Studentas : public Human{
         std::vector<int> nd;
     public:
         //Seteriai
-        Studentas() {};
+        Studentas(const Studentas& a) {
+            var = a.var;
+            pav = a.pav;
+            galutinis = a.galutinis;
+            mediana = a.mediana;
+            galmed = a.galmed;
+            for (int i = 0; i < a.nd.size(); i++){
+                nd[i] = a.nd[i];
+            }
+            return *this;
+        };
         ~Studentas(){
             nd.clear();
         }
