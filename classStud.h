@@ -39,18 +39,6 @@ class Studentas : public Human{
         inline double Mediana () const {return mediana;}
         inline double MedVid () const {return galmed;}
         //Operatoriai
-        Studentas& operator = (const Studentas& a){
-            if (&a == this) return *this;
-            var = a.var;
-            pav = a.pav;
-            galutinis = a.galutinis;
-            mediana = a.mediana;
-            galmed = a.galmed;
-            for (int i = 0; i < a.nd.size(); i++){
-                nd[i] = a.nd[i];
-            }
-            return *this;
-        }
         friend std::ostream& operator << (std::ostream& out, const Studentas& Tomas){
             out << Tomas.Vardas() << " " << Tomas.Pavarde() << " " << std::setprecision(3) << Tomas.Vidurkis() << " " << Tomas.MedVid();
             return out;
