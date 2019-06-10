@@ -71,6 +71,14 @@ class Studentas : public Human{
                 return 0;
             }
         }
+        friend bool operator >= (const Studentas& Tomas, int n){
+            if (Tomas.Vidurkis() >= n || Tomas.MedVid() >= n){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
         friend bool operator > (const Studentas& Tomas, int n){
             if (Tomas.Vidurkis() > n && Tomas.MedVid() > n){
                 return 1;
@@ -79,6 +87,14 @@ class Studentas : public Human{
                 return 0;
             }
         }
+        friend bool operator < (const Studentas& Tomas, int n){
+                if (Tomas.Vidurkis() < n && Tomas.MedVid() < n){
+                    return 1;
+                }
+                else{
+                    return 0;
+                }
+            }
         friend bool operator != (const Studentas& Tomas, int n){
             if (Tomas.Vidurkis() != n && Tomas.MedVid() != n){
                 return 1;
